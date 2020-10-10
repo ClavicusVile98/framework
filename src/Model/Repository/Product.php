@@ -22,7 +22,7 @@ class Product
 
         $productList = [];
         foreach ($this->getDataFromSource(['id' => $ids]) as $item) {
-            $productList[] = new Entity\Product($item['id'], $item['name'], $item['price']);
+            $productList[] = new Entity\Product($item['id'], $item['name'], $item['price'], $item['description']);
         }
 
         return $productList;
@@ -37,7 +37,7 @@ class Product
     {
         $productList = [];
         foreach ($this->getDataFromSource() as $item) {
-            $productList[] = new Entity\Product($item['id'], $item['name'], $item['price']);
+            $productList[] = new Entity\Product($item['id'], $item['name'], $item['price'], $item['description']);
         }
 
         return $productList;
@@ -57,46 +57,61 @@ class Product
                 'id' => 1,
                 'name' => 'PHP',
                 'price' => 15300,
+            'description' => 'This course about PHP',
             ],
             [
                 'id' => 2,
                 'name' => 'Python',
                 'price' => 20400,
+            'description' => 'This course about Python',
             ],
             [
                 'id' => 3,
                 'name' => 'C#',
                 'price' => 30100,
+            'description' => 'This course about C#',
             ],
             [
                 'id' => 4,
                 'name' => 'Java',
                 'price' => 30600,
+            'description' => 'This course about Java',
             ],
             [
                 'id' => 5,
                 'name' => 'Ruby',
                 'price' => 18600,
+            'description' => 'This course about Ruby',
+            ],
+            [
+                'id' => 6,
+                'name' => 'Rust',
+                'price' => 10000,
+            'description' => 'This course about Rust',
             ],
             [
                 'id' => 8,
                 'name' => 'Delphi',
                 'price' => 8400,
+            'description' => 'This course about Delphi',
             ],
             [
                 'id' => 9,
                 'name' => 'C++',
                 'price' => 19300,
+            'description' => 'This course about C++',
             ],
             [
                 'id' => 10,
                 'name' => 'C',
                 'price' => 12800,
-            ],
+            'description' => 'This course about C',
+        ],
             [
                 'id' => 11,
                 'name' => 'Lua',
                 'price' => 5000,
+            'description' => 'This course about Lua',
             ],
         ];
 
