@@ -16,8 +16,9 @@
                             <table cellspacing="10">
                                 <tr><td><a href="<?= $path('index') ?>">Главная</a></td></tr>
                                 <tr><td><a href="<?= $path('product_list') ?>">Товары</a></td></tr>
+                                <tr><td><a href="<?= $path('description') ?>">Описание</a></td></tr>
                                 <tr><td><a href="<?= $path('order_info') ?>">Корзина</a></td></tr>
-                                <?php if (!$isAuth) {
+				<?php if (!$isAuth) {
     ?>
                                     <tr><td><a href="<?= $path('user_authentication') ?>">Авторизация</a></td></tr>
                                 <?php
