@@ -47,5 +47,9 @@ $routes->add(
     'description',
     new Route('/product/description', ['_controller' => [ProductController::class, 'productDescription']])
 );
+$routes->add(
+    'users_list',
+    new Route('/user/list', ['_controller' => [UserController::class, 'users_list']])
+);
 
 return $routes;
