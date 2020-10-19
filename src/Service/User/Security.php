@@ -39,6 +39,20 @@ class Security implements ISecurity
         return $this->getUser() instanceof Model\Entity\User;
     }
 
+    public function roleType(): bool
+    {
+        $isLogged = $this->isLogged();
+        $role = $this->getUser()->getRole()->getType();
+
+        if ($isLogged) {
+            if ($role == "admin") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     /**
      * @inheritdoc
      */

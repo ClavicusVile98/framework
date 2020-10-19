@@ -60,6 +60,21 @@ class User
     }
 
     /**
+     * Получаем всех пользователей
+     *
+     * @return Entity\User[]
+     */
+    public function fetchAll(): array
+    {
+        $userList = [];
+        foreach ($this->getDataFromSource() as $item) {
+            $userList[] = new Entity\User($item['id'], $item['name'], $item['login'], $item['password'], $item['role']);
+        }
+
+        return $userList;
+    }
+
+    /**
      * Получаем пользователей из источника данных
      *
      * @param array $search
@@ -105,7 +120,7 @@ class User
                 'id' => 5,
                 'name' => 'Student Vasya',
                 'login' => 'vasya',
-                'password' => '$qwerty',
+                'password' => '$2y$10$qiWeFYKTUfn/ir4Mcz2POOt.5Ped4jnY6SpOB3vYk8wETcTjbyN0S', //$qwerty
                 'role' => $user
             ]
         ];

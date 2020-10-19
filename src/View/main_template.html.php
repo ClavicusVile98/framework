@@ -17,6 +17,7 @@
                                 <tr><td><a href="<?= $path('index') ?>">Главная</a></td></tr>
                                 <tr><td><a href="<?= $path('product_list') ?>">Товары</a></td></tr>
                                 <tr><td><a href="<?= $path('description') ?>">Описание</a></td></tr>
+                                <tr><td><a href="<?= $path('users_list') ?>">Список пользователей</a></td></tr>
                                 <tr><td><a href="<?= $path('order_info') ?>">Корзина</a></td></tr>
 				<?php if (!$isAuth) {
     ?>

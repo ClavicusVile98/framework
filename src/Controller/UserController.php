@@ -6,6 +6,7 @@ namespace Controller;
 
 use Framework\Render;
 use Service\User\Security;
+use Service\User\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -37,6 +38,25 @@ class UserController
         }
 
         return $this->render('user/authentication.html.php', ['error' => $error ?? '']);
+    }
+
+    /** Вывод всех пользователей для админов
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function users_list(Request $request): Response
+    {
+        $role = (new Security($request->getSession()))->roleType();
+        if ($role) {
+            $user = (new User())->getAll();
+            return $this->render('user/users_list.html.php', ['user' => $user]);
+        } else {
+            $error = 'Нет доступа';
+        }
+        return $this->render('user/users_list.html.php', ['error' => $error]);
+        /*return $this->redirect('index');*/
     }
 
     /**
