@@ -61,15 +61,15 @@ class Security implements ISecurity
         return true;
     }
 
-    /*public function isAdminRole(): bool
+    public function isAdminRole(): bool
     {
-        $role = (new Model\Repository\User())->isAdminRole();
-        if(!$role){
+        $role = (new Model\Repository\User())->isAdmin();
+        if (!$role) {
             return false;
+        } else {
+            return true;
         }
-
-        return true;
-    }*/
+    }
 
     /**
      * @inheritdoc

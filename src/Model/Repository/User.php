@@ -59,6 +59,19 @@ class User
         );
     }
 
+    public function isAdmin(): bool
+    {
+        foreach ($this->getDataFromSource([]) as $users) {
+            if ($users['role']['role'] == 'admin') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Получаем всех пользователей
      *

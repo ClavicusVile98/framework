@@ -47,11 +47,11 @@ class UserController
      *
      * @return Response
      */
-    public function users_list(): Response
+    public function users_list(Request $request): Response
     {
-        $role = (new \Model\Repository\User())->isAdminRole();
+        $role = (new Security($request->getSession()))->isAdminRole();
         if ($role) {
-            $user = (new User)->getAll();
+            $user = (new User())->getAll();
             return $this->render('user/users_list.html.php', ['userList' => $user]);
         } else {
             $error = 'Нет доступа';

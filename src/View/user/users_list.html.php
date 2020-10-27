@@ -4,7 +4,7 @@
 $body = function () use ($userList, $path) {
     ?>
     <table cellpadding="40" cellspacing="0" border="0">
-        <tr><td colspan="6" align="center">Наши курсы</td></tr>
+        <tr><td colspan="6" align="center">Пользователи сайта</td></tr>
         <?php
         $position = 0;
     foreach ($userList as $key => $user) {

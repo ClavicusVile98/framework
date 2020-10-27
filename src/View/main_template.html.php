@@ -22,9 +22,10 @@
     ?>
                                     <tr><td><a href="<?= $path('user_authentication') ?>">Авторизация</a></td></tr>
                                 <?php
-} else {
-        ?>
-                                    <tr><td><a href="<?= $path('users_list') ?>">Список пользователей</a></td></tr>
+} else {?>
+
+                                    <tr><td><a href = "<?= $path('users_list') ?>" > Список пользователей </a></td></tr>
+                             
                                     <tr><td><a href="<?= $path('logout') ?>">Выход</a></td></tr>
                                 <?php
     } ?>
