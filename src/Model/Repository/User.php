@@ -68,7 +68,7 @@ class User
     {
         $userList = [];
         foreach ($this->getDataFromSource() as $item) {
-            $userList[] = new Entity\User($item['id'], $item['name'], $item['login'], $item['password'], $item['role']);
+            $userList[] = $this->createUser($item);
         }
 
         return $userList;

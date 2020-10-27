@@ -10,15 +10,11 @@
         /**
          * Получаем всех пользователей
          *
-         * @param string $sortType
-         *
          * @return Model\Entity\User[]
          */
         public function getAll(): array
         {
-            $userList = $this->getUserRepository()->fetchAll();
-
-            return $userList;
+            return $this->getUserRepository()->fetchAll();
         }
 
         /**

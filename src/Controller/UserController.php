@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Controller;
 
 use Framework\Render;
+use Service\Order\Basket;
 use Service\User\Security;
 use Service\User\User;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,18 +47,23 @@ class UserController
      *
      * @return Response
      */
-    public function users_list(Request $request): Response
+    public function users_list(): Response
     {
-        $role = (new Security($request->getSession()))->roleType();
+        $role = (new \Model\Repository\User())->isAdminRole();
         if ($role) {
-            $user = (new User())->getAll();
-            return $this->render('user/users_list.html.php', ['user' => $user]);
+            $user = (new User)->getAll();
+            return $this->render('user/users_list.html.php', ['userList' => $user]);
         } else {
             $error = 'Нет доступа';
         }
         return $this->render('user/users_list.html.php', ['error' => $error]);
-        /*return $this->redirect('index');*/
     }
+
+    /*public function account(Request $request): Response
+    {
+        $basket = new Basket($request->getSession());
+        $basket->;
+    }*/
 
     /**
      * Выходим из системы
