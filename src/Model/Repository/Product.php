@@ -9,9 +9,10 @@ use Model\Entity;
 class Product
 {
     /**
-     * Поиск продуктов по массиву id
+     * Поиск продуктов
      *
-     * @param int[] $ids
+     * @param array $ids
+     *
      * @return Entity\Product[]
      */
     public function search(array $ids = []): array
@@ -20,9 +21,16 @@ class Product
             return [];
         }
 
+        $prototype = new Entity\Product(0,'name', 0.0, 'desc');
         $productList = [];
+
         foreach ($this->getDataFromSource(['id' => $ids]) as $item) {
-            $productList[] = new Entity\Product($item['id'], $item['name'], $item['price'], $item['description']);
+            $prototype->setId($item['id']);
+            $prototype->setPrice($item['price']);
+            $prototype->setName($item['name']);
+            $prototype->setDescription($item['description']);
+
+            $productList[] = clone $prototype;
         }
 
         return $productList;
@@ -35,9 +43,16 @@ class Product
      */
     public function fetchAll(): array
     {
+        $prototype = new Entity\Product(0,'', 0.0, '');;
         $productList = [];
+
         foreach ($this->getDataFromSource() as $item) {
-            $productList[] = new Entity\Product($item['id'], $item['name'], $item['price'], $item['description']);
+            $prototype->setId($item['id']);
+            $prototype->setPrice($item['price']);
+            $prototype->setName($item['name']);
+            $prototype->setDescription($item['description']);
+
+            $productList[] = clone $prototype;
         }
 
         return $productList;
