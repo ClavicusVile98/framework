@@ -4,14 +4,13 @@ declare(strict_types = 1);
 
 namespace Service\Order;
 
+
 use Model;
 use Service\Billing\Card;
-use Service\Billing\IBilling;
+use Service\Billing\Exception\BillingException;
 use Service\Communication\Email;
-use Service\Communication\ICommunication;
-use Service\Discount\IDiscount;
+use Service\Communication\Exception\CommunicationException;
 use Service\Discount\NullObject;
-use Service\User\ISecurity;
 use Service\User\Security;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -77,9 +76,11 @@ class Basket
     /**
      * Оформление заказа
      *
-     * @return void
+     * @return array
+     *
+     * @throws BillingException|CommunicationException
      */
-    public function checkout(): void
+    public function checkout(): array
     {
         // Здесь должна быть некоторая логика выбора способа платежа
         $billing = new Card();
@@ -92,36 +93,15 @@ class Basket
 
         $security = new Security($this->session);
 
-        $this->checkoutProcess($discount, $billing, $security, $communication);
-    }
+        $basketBuilder = (new BasketBuilder())
+            ->setBilling($billing)
+            ->setDiscount($discount)
+            ->setUser($security)
+            ->setCommunication($communication);
 
-    /**
-     * Проведение всех этапов заказа
-     *
-     * @param IDiscount $discount,
-     * @param IBilling $billing,
-     * @param ISecurity $security,
-     * @param ICommunication $communication
-     * @return void
-     */
-    public function checkoutProcess(
-        IDiscount $discount,
-        IBilling $billing,
-        ISecurity $security,
-        ICommunication $communication
-    ): void {
-        $totalPrice = 0;
-        foreach ($this->getProductsInfo() as $product) {
-            $totalPrice += $product->getPrice();
-        }
+        $checkoutProcess = $basketBuilder->build();
 
-        $discount = $discount->getDiscount();
-        $totalPrice = $totalPrice - $totalPrice / 100 * $discount;
-
-        $billing->pay($totalPrice);
-
-        $user = $security->getUser();
-        $communication->process($user, 'checkout_template');
+        return $checkoutProcess->checkoutProcess($this->getProductsInfo());
     }
 
     /**
