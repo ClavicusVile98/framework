@@ -73,6 +73,47 @@ class Product
     }
 
     /**
+     * @param int $id
+     *
+     * @return void
+     */
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return void
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param float $price
+     *
+     * @return void
+     */
+    public function setPrice(float $price): void
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @param string $description
+     *
+     * @return void
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
      * @return array
      */
     public function toArray(): array

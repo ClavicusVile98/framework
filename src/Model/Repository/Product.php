@@ -11,7 +11,7 @@ class Product
     /**
      * Поиск продуктов
      *
-     * @param array $ids
+     * @param int[] $ids
      *
      * @return Entity\Product[]
      */
@@ -21,7 +21,7 @@ class Product
             return [];
         }
 
-        $prototype = new Entity\Product(0,'name', 0.0, 'desc');
+        $prototype = new Entity\Product(0,'', 0, '');
         $productList = [];
 
         foreach ($this->getDataFromSource(['id' => $ids]) as $item) {
@@ -43,7 +43,7 @@ class Product
      */
     public function fetchAll(): array
     {
-        $prototype = new Entity\Product(0,'', 0.0, '');;
+        $prototype = new Entity\Product(0,'', 0, '');
         $productList = [];
 
         foreach ($this->getDataFromSource() as $item) {

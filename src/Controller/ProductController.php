@@ -7,7 +7,6 @@ namespace Controller;
 use Framework\Render;
 use Service\Order\Basket;
 use Service\Product\Product;
-use Service\SocialNetwork\ISocialNetwork;
 use Service\SocialNetwork\SocialNetwork;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
