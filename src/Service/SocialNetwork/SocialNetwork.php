@@ -16,34 +16,20 @@ class SocialNetwork
      */
     public function create(string $socialNetwork, string $courseName): void
     {
-        // Реализовать паттерн Адаптер с названиями указанными ниже
-
-        switch ($socialNetwork) {
-            case ISocialNetwork::SOCIAL_NETWORK_VK:
-                //$socialNetworkAdapter = new VKAdapter();
-                break;
-
-            case ISocialNetwork::SOCIAL_NETWORK_FACEBOOK:
-                //$socialNetworkAdapter = new FacebookAdapter();
-                break;
-
-            default:
-                //$socialNetworkAdapter = new VKAdapter();
-        }
-
-        $this->sendMessage($socialNetworkAdapter, $courseName);
+        $adapter = (new SocialAdapter())->getAdapter($socialNetwork);
+        $this->sendMessage($adapter, $courseName);
     }
 
     /**
      * Отправка сообщения в соц.сеть
      *
-     * @param ISocialNetwork $socialNetwork
+     * @param ISocialAdapter $socialAdapter
      * @param string $courseName
      *
      * @return void
      */
-    protected function sendMessage(ISocialNetwork $socialNetwork, string $courseName): void
+    protected function sendMessage(ISocialAdapter $socialAdapter, string $courseName): void
     {
-        $socialNetwork->send('Интересный ' . $courseName . ' курс');
+        $socialAdapter->send('Интересный ' . $courseName . ' курс');
     }
 }
