@@ -6,12 +6,7 @@ namespace Service\Order;
 
 
 use Model;
-use Service\Billing\Card;
-use Service\Billing\Exception\BillingException;
-use Service\Communication\Email;
-use Service\Communication\Exception\CommunicationException;
-use Service\Discount\NullObject;
-use Service\User\Security;
+use MongoDB\Driver\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class Basket
@@ -62,6 +57,13 @@ class Basket
         return in_array($productId, $this->getProductIds(), true);
     }
 
+    public function checkoutBasket(): void
+    {
+        $facade = new Facade();
+        $productList[] = $this->getProductsInfo();
+        $facade->basketFacade($productList);
+    }
+
     /**
      * Получаем информацию по всем продуктам в корзине
      *
@@ -71,37 +73,6 @@ class Basket
     {
         $productIds = $this->getProductIds();
         return $this->getProductRepository()->search($productIds);
-    }
-
-    /**
-     * Оформление заказа
-     *
-     * @return array
-     *
-     * @throws BillingException|CommunicationException
-     */
-    public function checkout(): array
-    {
-        // Здесь должна быть некоторая логика выбора способа платежа
-        $billing = new Card();
-
-        // Здесь должна быть некоторая логика получения информации о скидки пользователя
-        $discount = new NullObject();
-
-        // Здесь должна быть некоторая логика получения способа уведомления пользователя о покупке
-        $communication = new Email();
-
-        $security = new Security($this->session);
-
-        $basketBuilder = (new BasketBuilder())
-            ->setBilling($billing)
-            ->setDiscount($discount)
-            ->setUser($security)
-            ->setCommunication($communication);
-
-        $checkoutProcess = $basketBuilder->build();
-
-        return $checkoutProcess->checkoutProcess($this->getProductsInfo());
     }
 
     /**

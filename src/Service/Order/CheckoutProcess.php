@@ -13,43 +13,37 @@ use Service\User\ISecurity;
 
 class CheckoutProcess
 {
-    private $_discount;
-    private $_billing;
-    private $_communication;
-    private $_security;
-
-    public function __construct(BasketBuilder $basketBuilder)
-    {
-        $this->_security = $basketBuilder->getUser();
-        $this->_billing = $basketBuilder->getBilling();
-        $this->_discount = $basketBuilder->getDiscount();
-        $this->_communication = $basketBuilder->getCommunication();
-    }
-
     /**
      * Проведение всех этапов заказа
      *
-     * @param array $productsInfo
-     *
-     * @return array
-     *
-     * @throws BillingException|CommunicationException
+     * @param array $productList
+     * @param IDiscount $discount
+     * @param IBilling $billing
+     * @param ISecurity $security
+     * @param ICommunication $communication
+     * @return void
+     * @throws BillingException
+     * @throws CommunicationException
      */
-    public function checkoutProcess(array $productsInfo): array
+    public function checkoutProcess(
+        array $productList,
+        IDiscount $discount,
+        IBilling $billing,
+        ISecurity $security,
+        ICommunication $communication
+    ): void
     {
         $totalPrice = 0;
-        foreach ($productsInfo as $product) {
+        foreach ($productList as $product) {
             $totalPrice += $product->getPrice();
         }
 
-        $discount = $this->_discount->getDiscount();
+        $discount = $discount->getDiscount();
         $totalPrice = $totalPrice - $totalPrice / 100 * $discount;
 
-        $billing = $this->_billing;
         $billing->pay($totalPrice);
 
-        $user = $this->_security->getUser();
-        $communication = $this->_communication;
+        $user = $security->getUser();
         $communication->process($user, 'checkout_template');
     }
 }
