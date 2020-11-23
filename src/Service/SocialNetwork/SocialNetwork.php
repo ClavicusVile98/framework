@@ -4,10 +4,10 @@ declare(strict_types = 1);
 
 namespace Service\SocialNetwork;
 
-class SocialNetwork
+class SocialNetwork implements ISocialNetwork
 {
     /**
-     * Получение класса соц.сети
+     * Определение класса соц.сети
      *
      * @param string $socialNetwork
      * @param string $courseName
@@ -16,20 +16,16 @@ class SocialNetwork
      */
     public function create(string $socialNetwork, string $courseName): void
     {
-        $adapter = (new SocialAdapter())->getAdapter($socialNetwork);
-        $this->sendMessage($adapter, $courseName);
+        $this->newAdapter()->getAdapter($socialNetwork, $courseName);
     }
 
     /**
-     * Отправка сообщения в соц.сеть
+     * Фабричный метод
      *
-     * @param ISocialAdapter $socialAdapter
-     * @param string $courseName
-     *
-     * @return void
+     * @return SocialAdapter
      */
-    protected function sendMessage(ISocialAdapter $socialAdapter, string $courseName): void
+    private function newAdapter() : SocialAdapter
     {
-        $socialAdapter->send('Интересный ' . $courseName . ' курс');
+        return new SocialAdapter();
     }
 }

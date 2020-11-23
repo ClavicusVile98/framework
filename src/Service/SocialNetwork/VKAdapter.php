@@ -4,12 +4,10 @@
 namespace Service\SocialNetwork;
 
 
-class VKAdapter implements ISocialAdapter
+class VKAdapter
 {
-    public function send(string $message): void {    }
-
-    public function getAdapter(string $socialNetwork): ISocialNetwork
+    public function send(string $courseName): string
     {
-        return $socialNetworkAdapter;
+        return 'Message for VK profile'.$courseName;
     }
 }

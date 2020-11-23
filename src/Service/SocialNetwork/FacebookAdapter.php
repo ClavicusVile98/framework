@@ -4,12 +4,10 @@
 namespace Service\SocialNetwork;
 
 
-class FacebookAdapter implements ISocialAdapter
+class FacebookAdapter
 {
-    public function send(string $message): void {    }
-
-    public function getAdapter(string $socialNetwork): ISocialNetwork
+    public function send(string $courseName): string
     {
-        return $socialNetworkAdapter;
+        return 'Message for Facebook profile'.$courseName;
     }
 }

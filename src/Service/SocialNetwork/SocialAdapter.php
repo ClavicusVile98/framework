@@ -6,31 +6,19 @@ namespace Service\SocialNetwork;
 
 class SocialAdapter implements ISocialAdapter
 {
-    public function __construct()
-    {
-       // пока не знаю, что тут
-    }
-
-   public function getAdapter(string $socialNetwork): ISocialAdapter
+    public function getAdapter(string $socialNetwork, string $courseName): void
     {
         switch ($socialNetwork) {
             case ISocialNetwork::SOCIAL_NETWORK_VK:
-                $socialNetworkAdapter = new VKAdapter();
+                $socialNetworkAdapter = (new VKAdapter())->send($courseName);
                 break;
 
             case ISocialNetwork::SOCIAL_NETWORK_FACEBOOK:
-                $socialNetworkAdapter = new FacebookAdapter();
+                $socialNetworkAdapter = (new FacebookAdapter())->send($courseName);
                 break;
 
             default:
-                $socialNetworkAdapter = new VKAdapter();
+                $socialNetworkAdapter = (new VKAdapter())->send($courseName);
         }
-
-        return $socialNetworkAdapter;
-    }
-
-    public function send(string $message): void
-    {
-        // TODO: Implement send() method.
     }
 }

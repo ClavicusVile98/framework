@@ -9,12 +9,5 @@ interface ISocialNetwork
     public const SOCIAL_NETWORK_VK = 'Vkontakte';
     public const SOCIAL_NETWORK_FACEBOOK = 'Facebook';
 
-    /**
-     * Отправка сообщения в соц.сеть
-     *
-     * @param string $message
-     *
-     * @return void
-     */
-    public function send(string $message): void;
+    public function create(string $socialNetwork, string $courseName): void;
 }
