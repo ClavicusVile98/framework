@@ -1,13 +1,16 @@
+
 <?php
 
-/** @var \Model\Entity\Product $description */
+/** @var Product $description */
+
+use Model\Entity\Product;
+
 $body = function () use ($description, $path) {
     ?>
     <table cellpadding="40" cellspacing="0" border="0">
 	<tr><td colspan="6" align="center">Наши курсы</td></tr>
 	<tr>
 	    <td colspan="3" align="left">Сортировать по:
-		<a href="<?= $path('description') ?>?sort=price">Цене</a>
 		<a href="<?= $path('description') ?>?sort=name">Названию</a>
 	    </td>
 	</tr>
