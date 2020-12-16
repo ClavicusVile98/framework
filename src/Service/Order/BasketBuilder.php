@@ -62,6 +62,6 @@ class BasketBuilder implements IBuilder
 
     public function build(): CheckoutProcess
     {
-        return new CheckoutProcess($this);
+        return new CheckoutProcess();
     }
 }

@@ -6,7 +6,6 @@ namespace Service\Order;
 
 
 use Model;
-use MongoDB\Driver\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class Basket

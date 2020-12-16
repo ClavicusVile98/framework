@@ -1,8 +1,8 @@
 <?php
 
-declare(strict_types = 1);
 
-namespace Controller;
+
+namespace Controller\user;
 
 use Framework\Render;
 use Service\Order\Basket;
@@ -39,42 +39,5 @@ class UserController
         }
 
         return $this->render('user/authentication.html.php', ['error' => $error ?? '']);
-    }
-
-    /** Вывод всех пользователей для админов
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function users_list(Request $request): Response
-    {
-        $role = (new Security($request->getSession()))->isAdminRole();
-        if ($role) {
-            $user = (new User())->getAll();
-            return $this->render('user/users_list.html.php', ['userList' => $user]);
-        } else {
-            $error = 'Нет доступа';
-        }
-        return $this->render('user/users_list.html.php', ['error' => $error]);
-    }
-
-    /*public function account(Request $request): Response
-    {
-        $basket = new Basket($request->getSession());
-        $basket->;
-    }*/
-
-    /**
-     * Выходим из системы
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function logoutAction(Request $request): Response
-    {
-        (new Security($request->getSession()))->logout();
-
-        return $this->redirect('index');
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Controller;
+namespace Controller\order;
 
 use Framework\Render;
 use Service\Order\Basket;
@@ -30,23 +30,5 @@ class OrderController
         $isLogged = (new Security($request->getSession()))->isLogged();
 
         return $this->render('order/info.html.php', ['productList' => $productList, 'isLogged' => $isLogged]);
-    }
-
-    /**
-     * Оформление заказа
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function checkoutAction(Request $request): Response
-    {
-        $isLogged = (new Security($request->getSession()))->isLogged();
-        if (!$isLogged) {
-            return $this->redirect('user_authentication');
-        }
-
-        (new Basket($request->getSession()))->checkout();
-
-        return $this->render('order/checkout.html.php');
     }
 }
